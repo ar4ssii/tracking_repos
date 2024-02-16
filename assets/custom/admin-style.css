@@ -1,0 +1,259 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* The sidebar menu */
+.sidenav {
+    height: 100%;
+    /* Full-height: remove this if you want "auto" height */
+    width: 70px;
+    /* Set the width of the sidebar */
+    position: fixed;
+    /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1;
+    /* Stay on top */
+    top: 0;
+    /* Stay at the top */
+    left: 0;
+    background-color: #111;
+    /* Black */
+    overflow-x: hidden;
+    /* Disable horizontal scroll */
+    padding-top: 10px;
+}
+
+/* The navigation menu links */
+.sidenav a {
+    padding: 6px 7px 6px 6px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    opacity: .75;
+    display: block;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+    color: #f1f1f1;
+    opacity: 1;
+}
+
+/* Style page content */
+.main {
+    margin-left: 60px;
+    /* Same as the width of the sidebar */
+    padding-left: 10px;
+}
+
+/* Position the icon at the bottom left corner */
+.bottom-icon {
+    position: absolute;
+    bottom: 10px;
+    left: 16px;
+    display: block;
+}
+
+.hide-user {
+    display: block;
+}
+
+.cs-accordion {
+    width: 100%;
+    height: 300px;
+    /* background-color: #1a1a1a; */
+    
+}
+
+.sidebar-accordion-phone{
+    display: none;
+}
+
+.cs-accordion-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.cs-accordion-input {
+    display: none;
+}
+
+.cs-accordion-header {
+    cursor: pointer;
+    background-color: #111;
+    padding: 10px 0 10px 0 !important;
+
+}
+
+.cs-accordion-panel {
+    display: none;
+
+}
+
+.cs-accordion-input:checked~.cs-accordion-header {
+    background-color: #070707;
+   
+}
+
+.cs-accordion-input:checked~.cs-accordion-header~.cs-accordion-panel {
+    display: block;
+    overflow: scroll;
+    height: 300px;
+    background-color: #1a1a1a;
+}
+
+/* For Webkit browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+    width: 5px; /* Adjust the width as needed */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #555; /* Color of the thumb */
+}
+
+
+/* Override Bootstrap default styles for small screens */
+@media (max-width: 576px) {
+    .sidenav {
+        width: 100%;
+        height: auto;
+        padding-top: 5px;
+
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .sidenav a {
+        font-size: 18px;
+        margin-bottom: 0;
+        /* Remove space between icons */
+    }
+
+
+
+    /* Position the icon at the top right corner on small screens */
+    .bottom-icon {
+        top: 20px;
+        left: auto;
+        right: 16px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+    }
+
+    /* Style page content */
+    .main {
+        margin-top: 60px;
+        /* Same as the width of the sidebar */
+        padding: 0px 0px;
+        margin-left: 0px;
+    }
+
+    .bg-new-danger {
+        background-color: #e95a5a;
+        padding-top: 5px !important;
+        padding-bottom: 5px !important;
+        margin-top: -5px !important;
+    }
+
+    .hide-user {
+        display: none;
+    }
+
+    .cs-accordion {
+        flex-direction: column;
+        /* Switch to vertical layout on smaller screens */
+        height: auto;
+        /* Allow vertical expansion */
+        overflow-x: hidden;
+        /* Hide horizontal overflow */
+    }
+
+    .cs-accordion-input:checked~.cs-accordion-header~.cs-accordion-panel {
+        display: block;
+    }
+    .accordion-icon-hide{
+        display: none;
+    }
+    .sidebar-accordion-phone{
+        display: block;
+    }
+
+    /* for the check in tracking to move left */
+    .fa-ml-20{
+        margin-left: -20px;
+    }
+    
+}
+
+/* md breakpoint */
+@media (max-width: 768px) {
+    /* for the check in tracking to move left */
+    .fa-ml-20{
+        margin-left: -20px;
+    }
+}
+
+.hr-custom {
+    color: white;
+    margin: 0 5px;
+}
+
+@media (max-width: 576px) {
+
+    /* Apply the style only when the screen width is 576 pixels or less */
+    .text-end-to-left {
+        text-align: left !important;
+    }
+}
+
+.bg-new-danger {
+    background-color: #e95a5a;
+}
+
+.border-primary-left {
+    border-left: 3px solid #0d6efd;
+}
+
+.border-secondary-left {
+    border-left: 3px solid #6c757d;
+}
+
+.border-success-left {
+    border-left: 3px solid #198754;
+}
+
+.border-danger-left {
+    border-left: 3px solid #e95a5a;
+}
+
+.border-warning-left {
+    border-left: 3px solid #ffc107;
+}
+
+.border-light-left {
+    border-left: 3px solid #f8f9fa;
+}
+
+.border-dark-left {
+    border-left: 3px solid #212529;
+}
+
+.border-info-left {
+    border-left: 3px solid #0dcaf0;
+}
+
+.add-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+.dashboard-item{
+    text-decoration: none;
+    color: #212529;
+}
+.dashboard-item:hover{
+    text-decoration: none;
+    color: #a0a0a0;
+}

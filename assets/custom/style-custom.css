@@ -1,0 +1,66 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.bg-gradient-custom {
+    width: 100%;
+    /* Set your desired width */
+    min-height: 95vh;
+    /* Set your desired height */
+    background: linear-gradient(90deg, #e0f5ff, #22adf3);
+    /* Adjust the colors as per your preference */
+    background-size: 200% 100%;
+    animation: moveGradient 5s linear infinite;
+    margin-top: -10px!important;
+
+}
+
+.bg-gradient-custom-login {
+    width: 100%;
+    /* Set your desired width */
+    height: auto;
+    /* Set your desired height */
+    background: linear-gradient(90deg, #41b6ec, #22adf3);
+    /* Adjust the colors as per your preference */
+    background-size: 200% 100%;
+    animation: moveGradient 5s linear infinite;
+}
+
+.tracking-details-container-bg {
+    width: 100%;
+    /* Set your desired width */
+    min-height: 90vh;
+    /* Set your desired height */
+    background: linear-gradient(90deg, #e4e4e4, #22adf3);
+    /* Adjust the colors as per your preference */
+    background-size: 200% 100%;
+    animation: moveGradient 5s linear infinite;
+}
+
+.container-tracking-margin-top {
+    margin-top: -50px;
+}
+
+.custom-placeholder-color::placeholder {
+    color: #ebebeb !important;
+    /* Set your desired color */
+}
+
+.custom-input-border {
+    border-color: #ffffff;
+    /* Change this to your desired color */
+}
+
+td.text-end {
+    width: 270px;
+    
+}
+
+.text-x-small{
+    font-size: x-small;
+    margin-bottom: 0;
+}
+
+.cs-rounded-5{
+    border-radius: 50px;
+}
