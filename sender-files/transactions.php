@@ -116,11 +116,11 @@ $rowNum = 1;
                             <td><?= $row['transactionNumber'] ?></td>
                             <td><?= $row['recipientFName'] . ' ' . $row['recipientMName'] . ' ' . $row['recipientLName'] ?></td>
                             <td><?= $row['DeliveryStatus'] ?></td>
-                            <td>
+                            <td class="text-center">
                                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal_<?= $row['deliverID'] ?>">View</button>
                                 <?php include 'sender-includes/view-details-modal.php'; ?>
                                 <?php if ($row['DeliveryStatus'] == "PENDING") { ?>
-                                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#CancelBookingModal_<?= $row['deliverID'] ?>">Cancel Booking</button>
+                                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#CancelBookingModal_<?= $row['deliverID'] ?>">Cancel Booking</button>
                                     <?php include 'sender-includes/confirm-cancel-booking-modal.php'; ?>
                                 <?php } ?>
                             </td>
