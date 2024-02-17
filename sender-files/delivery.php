@@ -82,9 +82,9 @@ include 'sender-includes/header.php';
                                 <!-- <p style="font-size: small;" class="text-center">Note: Your address will be the pick-up address</p> -->
                                 <label for="" class="text-capitalize">Sender's Name</label>
                                 <div class="input-group">
-                                    <input type="text" aria-label="First name" required name="FName" value="<?= $row['FName'] ?>" placeholder="Enter First Name" class="form-control">
-                                    <input type="text" aria-label="MIddle name" name="MName" value="<?= $row['MName'] ?>" placeholder="Enter Middle Name" class="form-control">
-                                    <input type="text" aria-label="Last name" required name="LName" value="<?= $row['LName'] ?>" placeholder="Enter Last Name" class="form-control">
+                                    <input type="text" aria-label="First name" required name="FName" value="<?= $row['FName'] ?>" placeholder="First Name" class="form-control">
+                                    <input type="text" aria-label="MIddle name" name="MName" value="<?= $row['MName'] ?>" placeholder="Middle Name" class="form-control">
+                                    <input type="text" aria-label="Last name" required name="LName" value="<?= $row['LName'] ?>" placeholder="Last Name" class="form-control">
                                 </div>
                                 <label for="" class="text-capitalize">Sender's Mobile Number</label>
                                 <input type="text" class="form-control" required name="sender_contact_number" value="<?= $row['ContactNumber'] ?>">
@@ -129,9 +129,9 @@ include 'sender-includes/header.php';
                                 <p style="font-size: small;" class="text-center">Note: Your recipient address will be the delivery address</p>
                                 <label for="" class="text-capitalize">Recipient's Name</label>
                                 <div class="input-group">
-                                    <input type="text" aria-label="First name" required name="recipient_FName" placeholder="Enter First Name" class="form-control">
-                                    <input type="text" aria-label="MIddle name" name="recipient_MName" placeholder="Enter Middle Name" class="form-control">
-                                    <input type="text" aria-label="Last name" required name="recipient_LName" placeholder="Enter Last Name" class="form-control">
+                                    <input type="text" aria-label="First name" required name="recipient_FName" placeholder="First Name" class="form-control">
+                                    <input type="text" aria-label="MIddle name" name="recipient_MName" placeholder="Middle Name" class="form-control">
+                                    <input type="text" aria-label="Last name" required name="recipient_LName" placeholder="Last Name" class="form-control">
                                 </div>
                                 <label for="" class="text-capitalize">Recipient's Mobile Number</label>
                                 <input type="text" class="form-control" required name="recipient_contact_number" placeholder="Enter the receiver's active contact number">

@@ -4,8 +4,23 @@
 <div class="main">
 
 
-  <?php include 'admin-includes/navbar.php'; ?>
 
+  <?php include 'admin-includes/navbar.php'; ?>
+  <div class="container mt-2">
+    <?php
+    if (isset($_SESSION['message'])) {
+    ?>
+      <div class="alert alert-<?= $_SESSION['alert-color'] ?> alert-dismissible">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <strong>
+          <?= $_SESSION['message'] ?>
+        </strong>
+      </div>
+    <?php
+      unset($_SESSION['message']);
+    }
+    ?>
+  </div>
   <?php
   $staffpostalID = $_SESSION['auth_user']['postLocationID'];
   $sql_fetchCounts = "SELECT
@@ -36,7 +51,7 @@
         WHERE tbl_deliver.DeliveryStatus = 'OUT FOR DELIVERY' AND tbl_recipient.postalID = $staffpostalID) AS OutForDeliveryCount,
     (SELECT COUNT(*) FROM tbl_deliver
         INNER JOIN tbl_recipient ON tbl_deliver.recipientID = tbl_recipient.recipientID
-        WHERE tbl_deliver.DeliveryStatus = 'RETURNED/CANCELLED' AND tbl_recipient.postalID = $staffpostalID) AS ReturnedCancelledCount";
+        WHERE tbl_deliver.DeliveryStatus = 'CANCELLED' AND tbl_recipient.postalID = $staffpostalID) AS ReturnedCancelledCount";
 
   $result_fetchCounts = $conn->query($sql_fetchCounts);
 
@@ -45,170 +60,174 @@
   }
   ?>
 
-  <div class="container-fluid mt-3">
-    <h6 class="text-uppercase fw-bold">admin at <?php echo $_SESSION['auth_user']['postLocationName']; ?> dashboard</h6>
+  <?php if ($_SESSION['auth_user']['position'] == '1') { ?>
+    <div class="container-fluid mt-3">
+      <h6 class="text-uppercase fw-bold">admin at <?php echo $_SESSION['auth_user']['postLocationName']; ?> dashboard</h6>
 
-    <div class="col mx-4">
-      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        <div class="col">
-          <a href="forApproval.php" class="dashboard-item">
-            <div class="card h-100 shadow border-warning-left">
-              <div class="row m-0 py-3 align-items-center">
-                <div class="col-4">
-                  <i class="fa-solid fa-clock display-3 text-warning"></i>
-                </div>
-                <div class="col-8 text-end">
-                  <h1 class="display-2 text-warning"><?php echo $row_counts['PendingCount']; ?></h1>
-                  <p class="text-uppercase">Pending Approval</p>
-                </div>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="col">
-          <a href="approvedBooking.php" class="dashboard-item">
-            <div class="card h-100 shadow border-info-left">
-              <div class="row m-0 py-3 align-items-center">
-                <div class="col-4">
-                  <i class="fa-solid fa-check-to-slot display-3 text-info"></i>
-                </div>
-                <div class="col-8 text-end">
-                  <h1 class="display-2 text-info"><?php echo $row_counts['BookedCount']; ?></h1>
-                  <p class="text-uppercase">Booked</p>
+      <div class="col mx-4">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+          <div class="col">
+            <a href="forApproval.php" class="dashboard-item">
+              <div class="card h-100 shadow border-warning-left">
+                <div class="row m-0 py-3 align-items-center">
+                  <div class="col-4">
+                    <i class="fa-solid fa-clock display-3 text-warning"></i>
+                  </div>
+                  <div class="col-8 text-end">
+                    <h1 class="display-2 text-warning"><?php echo $row_counts['PendingCount']; ?></h1>
+                    <p class="text-uppercase">Pending Approval</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </a>
-        </div>
-        <div class="col">
-          <a href="CollectedPackages.php" class="dashboard-item">
-            <div class="card h-100 shadow border-primary-left">
-              <div class="row m-0 py-3 align-items-center">
-                <div class="col-4">
-                  <i class="fa-solid fa-location-dot display-3 text-primary"></i>
-                </div>
-                <div class="col-8 text-end">
-                  <h1 class="display-2 text-primary"><?php echo $row_counts['CollectedCount']; ?></h1>
-                  <p class="text-uppercase">collected</p>
+            </a>
+          </div>
+          <div class="col">
+            <a href="approvedBooking.php" class="dashboard-item">
+              <div class="card h-100 shadow border-info-left">
+                <div class="row m-0 py-3 align-items-center">
+                  <div class="col-4">
+                    <i class="fa-solid fa-check-to-slot display-3 text-info"></i>
+                  </div>
+                  <div class="col-8 text-end">
+                    <h1 class="display-2 text-info"><?php echo $row_counts['BookedCount']; ?></h1>
+                    <p class="text-uppercase">Booked</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </a>
-        </div>
+            </a>
+          </div>
+          <div class="col">
+            <a href="CollectedPackages.php" class="dashboard-item">
+              <div class="card h-100 shadow border-primary-left">
+                <div class="row m-0 py-3 align-items-center">
+                  <div class="col-4">
+                    <i class="fa-solid fa-location-dot display-3 text-primary"></i>
+                  </div>
+                  <div class="col-8 text-end">
+                    <h1 class="display-2 text-primary"><?php echo $row_counts['CollectedCount']; ?></h1>
+                    <p class="text-uppercase">collected</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
 
-        <div class="col">
-          <a href="IntransitPackages.php" class="dashboard-item">
-            <div class="card h-100 shadow border-success-left">
-              <div class="row m-0 py-3 align-items-center">
-                <div class="col-4">
-                  <i class="fa-solid fa-truck-arrow-right display-3 text-success"></i>
-                </div>
-                <div class="col-8 text-end">
-                  <h1 class="display-2 text-success"><?php echo $row_counts['InTransitCount']; ?></h1>
-                  <p class="text-uppercase">In Transit</p>
+          <div class="col">
+            <a href="IntransitPackages.php" class="dashboard-item">
+              <div class="card h-100 shadow border-success-left">
+                <div class="row m-0 py-3 align-items-center">
+                  <div class="col-4">
+                    <i class="fa-solid fa-truck-arrow-right display-3 text-success"></i>
+                  </div>
+                  <div class="col-8 text-end">
+                    <h1 class="display-2 text-success"><?php echo $row_counts['InTransitCount']; ?></h1>
+                    <p class="text-uppercase">In Transit</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </a>
-        </div>
+            </a>
+          </div>
 
-        <div class="col">
-          <a href="ReceivedPackages.php" class="dashboard-item">
-            <div class="card h-100 shadow border-info-left">
-              <div class="row m-0 py-3 align-items-center">
-                <div class="col-4">
-                  <i class="fa-solid fa-arrows-down-to-line display-3 text-info"></i>
-                </div>
-                <div class="col-8 text-end">
-                  <h1 class="display-2 text-info"><?php echo $row_counts['IncomingCount']; ?></h1>
-                  <p class="text-uppercase">Incoming from other post location</p>
+          <div class="col">
+            <a href="ReceivedPackages.php" class="dashboard-item">
+              <div class="card h-100 shadow border-info-left">
+                <div class="row m-0 py-3 align-items-center">
+                  <div class="col-4">
+                    <i class="fa-solid fa-arrows-down-to-line display-3 text-info"></i>
+                  </div>
+                  <div class="col-8 text-end">
+                    <h1 class="display-2 text-info"><?php echo $row_counts['IncomingCount']; ?></h1>
+                    <p class="text-uppercase">Incoming from other post location</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </a>
-        </div>
+            </a>
+          </div>
 
-        <div class="col">
-          <a href="ToDeliverPackages.php" class="dashboard-item">
-            <div class="card h-100 shadow border-warning-left">
-              <div class="row m-0 py-3 align-items-center">
-                <div class="col-4">
-                  <i class="fa-solid fa-truck-ramp-box display-3 text-warning"></i>
-                </div>
-                <div class="col-8 text-end">
-                  <h1 class="display-2 text-warning"><?php echo $row_counts['ReceivedCount']; ?></h1>
-                  <p class="text-uppercase">To Deliver</p>
+          <div class="col">
+            <a href="ToDeliverPackages.php" class="dashboard-item">
+              <div class="card h-100 shadow border-warning-left">
+                <div class="row m-0 py-3 align-items-center">
+                  <div class="col-4">
+                    <i class="fa-solid fa-truck-ramp-box display-3 text-warning"></i>
+                  </div>
+                  <div class="col-8 text-end">
+                    <h1 class="display-2 text-warning"><?php echo $row_counts['ReceivedCount']; ?></h1>
+                    <p class="text-uppercase">To Deliver</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </a>
-        </div>
+            </a>
+          </div>
 
-        <div class="col">
-          <a href="OutForDeliveryPackages.php" class="dashboard-item">
-            <div class="card h-100 shadow border-info-left">
-              <div class="row m-0 py-3 align-items-center">
-                <div class="col-4">
-                  <i class="fa-solid fa-truck-fast display-3 text-info"></i>
-                </div>
-                <div class="col-8 text-end">
-                  <h1 class="display-2 text-info"><?php echo $row_counts['OutForDeliveryCount']; ?></h1>
-                  <p class="text-uppercase">Out for Delivery</p>
-                </div>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="col">
-          <a href="DeliveredPackages.php" class="dashboard-item">
-            <div class="card h-100 shadow border-success-left">
-              <div class="row m-0 py-3 align-items-center">
-                <div class="col-4">
-                  <i class="fa-solid fa-box display-3 text-success"></i>
-                </div>
-                <div class="col-8 text-end">
-                  <h1 class="display-2 text-success"><?php echo $row_counts['DeliveredCount']; ?></h1>
-                  <p class="text-uppercase">Delivered</p>
+          <div class="col">
+            <a href="OutForDeliveryPackages.php" class="dashboard-item">
+              <div class="card h-100 shadow border-info-left">
+                <div class="row m-0 py-3 align-items-center">
+                  <div class="col-4">
+                    <i class="fa-solid fa-truck-fast display-3 text-info"></i>
+                  </div>
+                  <div class="col-8 text-end">
+                    <h1 class="display-2 text-info"><?php echo $row_counts['OutForDeliveryCount']; ?></h1>
+                    <p class="text-uppercase">Out for Delivery</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </a>
-        </div>
-        <div class="col">
-          <a href="CancelledPackages.php" class="dashboard-item">
-            <div class="card h-100 shadow border-danger-left">
-              <div class="row m-0 py-3 align-items-center">
-                <div class="col-4">
-                  <i class="fa-solid fa-ban display-3 text-danger"></i>
-                </div>
-                <div class="col-8 text-end">
-                  <h1 class="display-2 text-danger"><?php echo $row_counts['ReturnedCancelledCount']; ?></h1>
-                  <p class="text-uppercase">Returned/Cancelled/ Declined</p>
-                </div>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="col">
-          <a href="managePostLoc.php" class="dashboard-item">
-            <div class="card h-100 shadow border-secondary-left">
-              <div class="row m-0 py-3 align-items-center">
-                <div class="col-4">
-                  <i class="fa-solid fa-users display-3 text-secondary"></i>
-                </div>
-                <div class="col-8 text-end">
-                  <h1 class="display-2 text-secondary"><?php echo $row_counts['StaffCount']; ?></h1>
-                  <p class="text-uppercase">Staffs</p>
+            </a>
+          </div>
+          <div class="col">
+            <a href="DeliveredPackages.php" class="dashboard-item">
+              <div class="card h-100 shadow border-success-left">
+                <div class="row m-0 py-3 align-items-center">
+                  <div class="col-4">
+                    <i class="fa-solid fa-box display-3 text-success"></i>
+                  </div>
+                  <div class="col-8 text-end">
+                    <h1 class="display-2 text-success"><?php echo $row_counts['DeliveredCount']; ?></h1>
+                    <p class="text-uppercase">Delivered</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </a>
+            </a>
+          </div>
+          <div class="col">
+            <a href="CancelledPackages.php" class="dashboard-item">
+              <div class="card h-100 shadow border-danger-left">
+                <div class="row m-0 py-3 align-items-center">
+                  <div class="col-4">
+                    <i class="fa-solid fa-ban display-3 text-danger"></i>
+                  </div>
+                  <div class="col-8 text-end">
+                    <h1 class="display-2 text-danger"><?php echo $row_counts['ReturnedCancelledCount']; ?></h1>
+                    <p class="text-uppercase">Returned/Cancelled/ Declined</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col">
+            <a href="managePostLoc.php" class="dashboard-item">
+              <div class="card h-100 shadow border-secondary-left">
+                <div class="row m-0 py-3 align-items-center">
+                  <div class="col-4">
+                    <i class="fa-solid fa-users display-3 text-secondary"></i>
+                  </div>
+                  <div class="col-8 text-end">
+                    <h1 class="display-2 text-secondary"><?php echo $row_counts['StaffCount']; ?></h1>
+                    <p class="text-uppercase">Staffs</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-
-
+  <?php } else { ?>
+    <div class="container-fluid mt-3">
+      <h1>Welcome to DH.</h1>
+    </div>
+  <?php } ?>
 
 </div>
 

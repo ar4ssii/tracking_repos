@@ -76,6 +76,20 @@ $result_fetchPackageDetails = $conn->query($sql_fetchPackageDetails);
 $rowNum = 1;
 ?>
 
+<div class="container my-2">
+    <?php
+    if (isset($_SESSION['message'])) {
+    ?>
+        <div class="alert alert-<?= $_SESSION['alert-color'] ?> alert-dismissible">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>
+                <?= $_SESSION['message'] ?>
+            </strong>
+        </div>
+    <?php
+    unset($_SESSION['message']);} 
+    ?>
+</div>
 <div class="container-fluid my-3">
 
     <div class="container table-responsive-xxl">
@@ -105,6 +119,10 @@ $rowNum = 1;
                             <td>
                                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ViewDetailsModal_<?= $row['deliverID'] ?>">View</button>
                                 <?php include 'sender-includes/view-details-modal.php'; ?>
+                                <?php if ($row['DeliveryStatus'] == "PENDING") { ?>
+                                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#CancelBookingModal_<?= $row['deliverID'] ?>">Cancel Booking</button>
+                                    <?php include 'sender-includes/confirm-cancel-booking-modal.php'; ?>
+                                <?php } ?>
                             </td>
                         </tr>
                     <?php $rowNum++;

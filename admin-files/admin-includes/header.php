@@ -11,6 +11,29 @@ if (!isset($_SESSION['staffID'])) {
     $_SESSION['alert-color'] = 'danger';
     header('location: ../index.php');
 }
+
+// List of restricted pages
+$restrictedPages = array(
+    'forApproval.php',
+    'approvedBooking.php',
+    'CollectedPackages.php',
+    'IntransitPackages.php',
+    'ReceivedPackages.php',
+    'ToDeliverPackages.php',
+    'OutForDeliveryPackages.php',
+    'DeliveredPackages.php',
+    'CancelledPackages.php',
+    'managePostLoc.php'
+);
+
+// Check if the user's position is '0' and the requested page is in the restrictedPages list
+if ($_SESSION['auth_user']['position'] == '0' && isset($_SESSION['staffID']) && in_array(basename($_SERVER['PHP_SELF']), $restrictedPages)) {
+    $_SESSION['message'] = 'Restricted: You are restricted to access this page.';
+    $_SESSION['alert-color'] = 'danger';
+    header('location: dashboard.php');
+    exit(); // Exit to prevent further execution
+}
+
 include_once('../config/dbcon.php');
 ?>
 
